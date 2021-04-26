@@ -367,7 +367,7 @@ if(onnxruntime_DISABLE_EXCEPTIONS)
     # Eigen throw_std_bad_alloc calls 'new' instead of throwing which results in a nodiscard warning.
     # It also has unreachable code as there's no good way to avoid EIGEN_EXCEPTIONS being set in macros.h
     # TODO: see if we can limit the code this is disabled for.
-    string(APPEND CMAKE_CXX_FLAGS " /wd4834 /wd4702")
+    string(APPEND CMAKE_CXX_FLAGS " /wd4834 /wd4702 /wd4324")
     add_compile_definitions("_HAS_EXCEPTIONS=0")
   else()
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables")
@@ -1043,6 +1043,7 @@ if (WIN32)
     string(APPEND CMAKE_CXX_FLAGS " /MP")
     #Compiler bug, we should get such warnings. It will be fixed in a new VC release
     list(APPEND ORT_WARNING_FLAGS "/wd4127")
+    list(APPEND ORT_WARNING_FLAGS "/wd4324")
     # class needs to have dll-interface to be used by clients
     list(APPEND ORT_WARNING_FLAGS "/wd4251")
     # issued by thrust nonstandard extension used: nameless struct/union
